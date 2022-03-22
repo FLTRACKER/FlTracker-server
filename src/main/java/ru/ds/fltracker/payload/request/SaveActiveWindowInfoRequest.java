@@ -7,6 +7,5 @@ import ru.ds.fltracker.dto.ActiveWindowDto;
 @Data
 @NoArgsConstructor
 public class SaveActiveWindowInfoRequest {
-    private Long activityId;
     private ActiveWindowDto activeWindowPayload;
 }

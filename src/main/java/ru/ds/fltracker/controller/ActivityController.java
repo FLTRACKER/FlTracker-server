@@ -2,10 +2,7 @@ package ru.ds.fltracker.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.ds.fltracker.dto.ActiveWindowDto;
 import ru.ds.fltracker.dto.ActivityDto;
 import ru.ds.fltracker.entity.ActiveWindowEntity;
@@ -35,11 +32,10 @@ public class ActivityController {
         return ResponseEntity.ok(mapper.map(activityService.save(newActivity), ActivityDto.class));
     }
 
-    @PostMapping
-    public ResponseEntity<ActiveWindowDto> saveActiveWindowInfo(@RequestBody SaveActiveWindowInfoRequest request) {
-        ActiveWindowEntity windowInfo = mapper.map(request.getActiveWindowPayload(), ActiveWindowEntity.class);
-        ActivityEntity activity = activityService.findActivityById(request.getActivityId());
-        windowInfo.setActivity(activity);
+    @PostMapping("/{id}/addActiveWindow")
+    public ResponseEntity<ActiveWindowDto> saveActiveWindowInfo(@PathVariable("id") ActivityEntity activityEntity, @RequestBody ActiveWindowDto activeWindow) {
+        ActiveWindowEntity windowInfo = mapper.map(activeWindow, ActiveWindowEntity.class);
+        windowInfo.setActivity(activityEntity);
         return ResponseEntity.ok(mapper.map(activeWindowService.save(windowInfo), ActiveWindowDto.class));
     }
 }

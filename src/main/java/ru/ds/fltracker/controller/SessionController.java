@@ -9,7 +9,6 @@ import ru.ds.fltracker.mapper.Mapper;
 import ru.ds.fltracker.service.SessionService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
