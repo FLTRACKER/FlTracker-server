@@ -8,12 +8,8 @@ import ru.ds.fltracker.entity.ScreenshotEntity;
 import ru.ds.fltracker.entity.SessionEntity;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -43,8 +39,11 @@ public class PlainReportGeneratorStrategy implements ReportGenerateStrategy {
 
         for (SessionEntity session : sessions) {
             for (ScreenshotEntity screenshot : session.getScreenshots()) {
-                Path path = Paths.get(screenshot.getPath());
-                Image img = Image.getInstance(path.toAbsolutePath().toString());
+                int indentation = 0;
+                Image img = Image.getInstance(screenshot.getPath());
+                float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
+                        - document.rightMargin() - indentation) / img.getWidth()) * 100;
+                img.scalePercent(scaler);
                 document.add(img);
                 Chunk screenshotName = new Chunk(screenshot.getCreatedTime().toString(), font);
                 document.add(screenshotName);
