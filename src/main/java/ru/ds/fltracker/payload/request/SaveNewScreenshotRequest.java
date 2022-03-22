@@ -2,6 +2,7 @@ package ru.ds.fltracker.payload.request;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,5 +11,5 @@ import java.io.FileOutputStream;
 @NoArgsConstructor
 public class SaveNewScreenshotRequest {
     private Long sessionId;
-    private FileOutputStream file;
+    private MultipartFile file;
 }

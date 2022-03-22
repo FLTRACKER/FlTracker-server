@@ -1,0 +1,1 @@
+ALTER TABLE screenshots ALTER COLUMN path DROP NOT NULL;

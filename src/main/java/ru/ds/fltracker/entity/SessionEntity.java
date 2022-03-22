@@ -42,4 +42,10 @@ public class SessionEntity {
 
     @OneToMany(mappedBy = "session", fetch = FetchType.LAZY)
     private List<ActivityEntity> activities;
+
+    public static SessionEntity of(Long id) {
+        SessionEntity sessionEntity = new SessionEntity();
+        sessionEntity.setId(id);
+        return sessionEntity;
+    }
 }

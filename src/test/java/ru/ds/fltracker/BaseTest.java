@@ -11,6 +11,9 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
@@ -29,6 +32,7 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import ru.ds.fltracker.config.TestConfig;
 import ru.ds.fltracker.entity.BreakEntity;
 import ru.ds.fltracker.entity.SessionEntity;
 import ru.ds.fltracker.entity.UserEntity;
@@ -36,19 +40,27 @@ import ru.ds.fltracker.service.BreakService;
 import ru.ds.fltracker.service.SessionService;
 import ru.ds.fltracker.service.UserService;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
 @SpringBootTest
 @ActiveProfiles({"test"})
 @Testcontainers
+@Import({TestConfig.class})
 @ContextConfiguration(initializers = {BaseTest.Initializer.class})
 @DirtiesContext
 public class BaseTest {
-    protected MockMvc mockMvc;
     @Autowired
     private WebApplicationContext webApplicationContext;
+    @Autowired
+    private RestTemplate restTemplate;
+
     protected MockRestServiceServer mockServer;
+    protected MockMvc mockMvc;
+
 
     @Container
     public static JdbcDatabaseContainer<?> postgreSQLContainer =
@@ -69,20 +81,18 @@ public class BaseTest {
         }
     }
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplateBuilder()
-                .uriTemplateHandler(new DefaultUriBuilderFactory("http://localhost:8080"))
-                .requestFactory(() -> new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()))
-                .build();
-    }
-
     @BeforeEach
     public void init() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .alwaysDo(MockMvcResultHandlers.print())
                 .build();
-        this.mockServer = MockRestServiceServer.createServer(restTemplate());
+        this.mockServer = MockRestServiceServer.createServer(restTemplate);
+    }
+
+    protected String readFileFromResource(String s) throws IOException {
+        Resource resource = new ClassPathResource(s);
+        return new String(
+                Files.readAllBytes(resource.getFile().toPath()), StandardCharsets.UTF_8);
     }
 
     @BeforeAll

@@ -6,3 +6,6 @@ spring:
     url: jdbc:postgresql://localhost:5435/fltracker?stringtype=unspecified
     username: user
     password: password
+
+screenshots:
+  path: ${user.dir}${file.separator}screens${file.separator}

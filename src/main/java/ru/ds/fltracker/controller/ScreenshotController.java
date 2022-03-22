@@ -2,10 +2,8 @@ package ru.ds.fltracker.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.ds.fltracker.dto.BreakDto;
 import ru.ds.fltracker.dto.ScreenshotDto;
 import ru.ds.fltracker.entity.BreakEntity;
@@ -18,6 +16,7 @@ import ru.ds.fltracker.service.ScreenshotService;
 import ru.ds.fltracker.service.SessionService;
 
 import javax.imageio.ImageIO;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,8 +27,13 @@ public class ScreenshotController {
     private final Mapper mapper;
 
     @PostMapping
-    public ResponseEntity<ScreenshotDto> saveNewScreenshot(@RequestBody SaveNewScreenshotRequest request) {
-        SessionEntity session = sessionService.findSessionById(request.getSessionId());
-        return ResponseEntity.ok(mapper.map(screenshotService.saveNewScreenshot(session, request.getFile()), ScreenshotDto.class));
+    public ResponseEntity<ScreenshotDto> saveNewScreenshot(@RequestBody Long sessionId, @RequestPart("file") MultipartFile file) {
+        SessionEntity session = sessionService.findSessionById(sessionId);
+        return ResponseEntity.ok(mapper.map(screenshotService.saveNewScreenshot(session, file), ScreenshotDto.class));
+    }
+
+    @GetMapping("/sessionsScreenshots/{id}")
+    public List<ScreenshotDto> getSessionScreenshots(@PathVariable("id") SessionEntity sessionEntity) {
+        return mapper.mapAsList(screenshotService.getSessionScreenshots(sessionEntity), ScreenshotDto.class);
     }
 }
