@@ -16,12 +16,10 @@ public class ActivityDto {
     @ApiModelProperty(
             "Время начала активности"
     )
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
     @ApiModelProperty(
             "Время окончания активности"
     )
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime finishTime;
     @ApiModelProperty(
             "Информация об активных окнах"

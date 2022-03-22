@@ -19,6 +19,5 @@ public class ScreenshotDto {
     @ApiModelProperty(
             "Время создание скриншота"
     )
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdTime;
 }

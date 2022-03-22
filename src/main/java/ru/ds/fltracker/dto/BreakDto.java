@@ -21,12 +21,10 @@ public class BreakDto {
     @ApiModelProperty(
             "Время начала перерыва"
     )
-    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
     @ApiModelProperty(
             "Время окончания перерыва"
     )
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime finishTime;
     @ApiModelProperty(
             "Описание причины перерыва"
