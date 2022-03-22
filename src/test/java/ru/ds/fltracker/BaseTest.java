@@ -40,6 +40,7 @@ import ru.ds.fltracker.service.BreakService;
 import ru.ds.fltracker.service.SessionService;
 import ru.ds.fltracker.service.UserService;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -89,10 +90,9 @@ public class BaseTest {
         this.mockServer = MockRestServiceServer.createServer(restTemplate);
     }
 
-    protected String readFileFromResource(String s) throws IOException {
+    protected File readFileFromResource(String s) throws IOException {
         Resource resource = new ClassPathResource(s);
-        return new String(
-                Files.readAllBytes(resource.getFile().toPath()), StandardCharsets.UTF_8);
+        return resource.getFile();
     }
 
     @BeforeAll

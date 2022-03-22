@@ -22,7 +22,7 @@ class ScreenshotControllerTest extends BaseTest {
 
     @Test
     void saveNewScreenshot() throws IOException {
-        FileInputStream input = new FileInputStream("src/test/resources/screenshots/123.png");
+        FileInputStream input = new FileInputStream(readFileFromResource("screenshots/test.png"));
         MultipartFile multipartFile = new MockMultipartFile("fileItem",
                 "file", "image/png", IOUtils.toByteArray(input));
         screenshotController.saveNewScreenshot(1L, multipartFile);

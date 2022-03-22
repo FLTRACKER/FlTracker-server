@@ -37,7 +37,7 @@ public class ScreenshotService {
             uploadDir.mkdirs();
         }
 
-        String destination = String.format("%s%d/%d.jpg", defaultPath, session.getId(), screenshotEntity.getId());
+        String destination = String.format("%s%d%s%d.jpg", defaultPath, session.getId(), File.separator, screenshotEntity.getId());
         File file = new File(destination);
         try {
             multipartFile.transferTo(file);
