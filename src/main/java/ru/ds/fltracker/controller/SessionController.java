@@ -8,6 +8,7 @@ import ru.ds.fltracker.entity.SessionEntity;
 import ru.ds.fltracker.mapper.Mapper;
 import ru.ds.fltracker.service.SessionService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -21,6 +22,11 @@ public class SessionController {
     public ResponseEntity<Long> createNewSession(@RequestBody SessionDto sessionDto) {
         SessionEntity newSession = sessionService.save(mapper.map(sessionDto, SessionEntity.class));
         return ResponseEntity.ok(newSession.getId());
+    }
+
+    @PutMapping("/finish/{id}")
+    public ResponseEntity<Boolean> finishSession(@PathVariable("id") SessionEntity sessionEntity) {
+        return ResponseEntity.ok(sessionService.finishSession(sessionEntity));
     }
 
     // TODO: Change on pagination
