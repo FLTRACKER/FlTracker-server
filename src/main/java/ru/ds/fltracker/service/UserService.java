@@ -19,27 +19,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepo userRepo;
-    private final SessionService sessionService;
     private final EntityManager em;
 
     public UserEntity save(UserEntity userEntity) {
         UserEntity persisted = userRepo.saveAndFlush(userEntity);
         em.refresh(persisted);
         return persisted;
-    }
-
-    public void generateWorkReport(GenerateWorkReportRequest request) {
-        //TODO: Change to SecurityContextHolder.currentUser().id;
-        SessionFindParam findParam = SessionFindParam.builder()
-                .userId(1)
-                .fromDate(request.getFromDate())
-                .toDate(request.getToDate())
-                .pageNumber(0)
-                .pageSize(Integer.MAX_VALUE)
-                .build();
-        Page<SessionEntity> page = sessionService.find(findParam);
-        List<SessionEntity> sessionEntities = page.getContent();
-
     }
 
     public UserEntity getUserById(Integer id) {

@@ -8,17 +8,17 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import ru.ds.fltracker.dto.UserDto;
 import ru.ds.fltracker.entity.SessionEntity;
+import ru.ds.fltracker.payload.request.GenerateWorkReportRequest;
 import ru.ds.fltracker.payload.request.find.SessionFindParam;
 import ru.ds.fltracker.repo.SessionRepo;
+import ru.ds.fltracker.strategy.report.ReportGenerateStrategy;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static ru.ds.fltracker.specifications.Specifications.*;
 
@@ -27,6 +27,7 @@ import static ru.ds.fltracker.specifications.Specifications.*;
 @RequiredArgsConstructor
 public class SessionService {
     private final SessionRepo sessionRepo;
+    private final ReportService reportService;
     private final EntityManager em;
 
     public SessionEntity save(SessionEntity sessionEntity) {
@@ -52,6 +53,19 @@ public class SessionService {
 
     public SessionEntity findSessionById(Long id) {
         return sessionRepo.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+    public void generateWorkReport(GenerateWorkReportRequest request) {
+        SessionFindParam findParam = SessionFindParam.builder()
+                .userId(request.getUserId())
+                .fromDate(request.getFromDate())
+                .toDate(request.getToDate())
+                .pageNumber(0)
+                .pageSize(Integer.MAX_VALUE)
+                .build();
+        Page<SessionEntity> page = this.find(findParam);
+        List<SessionEntity> sessionEntities = page.getContent();
+        reportService.generateReport(sessionEntities, ReportGenerateStrategy.ReportPattern.PLAIN);
     }
 
     public Page<SessionEntity> find(SessionFindParam findParam) {

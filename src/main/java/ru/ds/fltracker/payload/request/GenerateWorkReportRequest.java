@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class GenerateWorkReportRequest {
     @NotNull
+    private Integer userId;
+    @NotNull
     private LocalDateTime fromDate;
     @NotNull
     private LocalDateTime toDate;

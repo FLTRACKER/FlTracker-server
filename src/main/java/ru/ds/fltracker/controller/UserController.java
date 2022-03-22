@@ -16,10 +16,4 @@ import javax.validation.Valid;
 @RequestMapping("/api/users")
 public class UserController {
     private final UserService userService;
-
-    @PostMapping("/report")
-    public ResponseEntity<Void> generateWorkReport(@RequestBody @Valid GenerateWorkReportRequest request) {
-        userService.generateWorkReport(request);
-        return ResponseEntity.ok().build();
-    }
 }

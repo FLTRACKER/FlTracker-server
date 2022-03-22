@@ -22,7 +22,7 @@ import java.util.List;
 public class ScreenshotService {
     private final ScreenshotRepo screenshotRepo;
     private final EntityManager em;
-    @Value("${screenshots.path}")
+    @Value("${screenshot.path}")
     private String defaultPath;
 
     public ScreenshotEntity saveNewScreenshot(SessionEntity session, MultipartFile multipartFile) {

@@ -7,5 +7,8 @@ spring:
     username: user
     password: password
 
-screenshots:
+screenshot:
   path: ${user.dir}${file.separator}screens${file.separator}
+
+report:
+  path: ${user.dir}${file.separator}reports${file.separator}
