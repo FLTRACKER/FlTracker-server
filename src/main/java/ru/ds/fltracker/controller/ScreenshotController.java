@@ -27,8 +27,8 @@ public class ScreenshotController {
     private final SessionService sessionService;
     private final Mapper mapper;
 
-    @PostMapping(headers = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<ScreenshotDto> saveNewScreenshot(@RequestBody Long sessionId, @RequestPart("file") MultipartFile file) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ScreenshotDto> saveNewScreenshot(@RequestPart("sessionId") Long sessionId, @RequestPart("file") MultipartFile file) {
         SessionEntity session = sessionService.findSessionById(sessionId);
         return ResponseEntity.ok(mapper.map(screenshotService.saveNewScreenshot(session, file), ScreenshotDto.class));
     }
