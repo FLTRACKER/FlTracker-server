@@ -1,6 +1,7 @@
 package ru.ds.fltracker.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +27,7 @@ public class ScreenshotController {
     private final SessionService sessionService;
     private final Mapper mapper;
 
-    @PostMapping
+    @PostMapping(headers = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<ScreenshotDto> saveNewScreenshot(@RequestBody Long sessionId, @RequestPart("file") MultipartFile file) {
         SessionEntity session = sessionService.findSessionById(sessionId);
         return ResponseEntity.ok(mapper.map(screenshotService.saveNewScreenshot(session, file), ScreenshotDto.class));
