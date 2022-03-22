@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.ds.fltracker.dto.ActiveWindowDto;
+import ru.ds.fltracker.dto.ActivityDto;
 import ru.ds.fltracker.entity.ActiveWindowEntity;
 import ru.ds.fltracker.entity.ActivityEntity;
 import ru.ds.fltracker.entity.SessionEntity;
@@ -26,22 +28,18 @@ public class ActivityController {
     private final Mapper mapper;
 
     @PostMapping
-    public ResponseEntity<String> addNewActivityInSession(@RequestBody AddNewActivityRequest request) {
+    public ResponseEntity<ActivityDto> addNewActivityInSession(@RequestBody AddNewActivityRequest request) {
         ActivityEntity newActivity = mapper.map(request.getActivityPayload(), ActivityEntity.class);
         SessionEntity session = sessionService.findSessionById(request.getSessionId());
         newActivity.setSession(session);
-        activityService.save(newActivity);
-        return ResponseEntity.ok(
-                String.format("Added new activity in session with id %s", request.getSessionId()));
+        return ResponseEntity.ok(mapper.map(activityService.save(newActivity), ActivityDto.class));
     }
 
     @PostMapping
-    public ResponseEntity<String> saveActiveWindowInfo(@RequestBody SaveActiveWindowInfoRequest request) {
+    public ResponseEntity<ActiveWindowDto> saveActiveWindowInfo(@RequestBody SaveActiveWindowInfoRequest request) {
         ActiveWindowEntity windowInfo = mapper.map(request.getActiveWindowPayload(), ActiveWindowEntity.class);
         ActivityEntity activity = activityService.findActivityById(request.getActivityId());
         windowInfo.setActivity(activity);
-        activeWindowService.save(windowInfo);
-        return ResponseEntity.ok(
-                String.format("Added new active window info in activity with id %s", request.getActivityId()));
+        return ResponseEntity.ok(mapper.map(activeWindowService.save(windowInfo), ActiveWindowDto.class));
     }
 }

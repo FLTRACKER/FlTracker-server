@@ -19,9 +19,9 @@ public class SessionController {
     private final Mapper mapper;
 
     @PostMapping
-    public ResponseEntity<String> createNewSession(@RequestBody SessionDto sessionDto) {
-        sessionService.save(mapper.map(sessionDto, SessionEntity.class));
-        return ResponseEntity.ok("New Session was created");
+    public ResponseEntity<Long> createNewSession(@RequestBody SessionDto sessionDto) {
+        SessionEntity newSession = sessionService.save(mapper.map(sessionDto, SessionEntity.class));
+        return ResponseEntity.ok(newSession.getId());
     }
 
     // TODO: Change on pagination
