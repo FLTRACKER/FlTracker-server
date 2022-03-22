@@ -1,5 +1,6 @@
 package ru.ds.fltracker.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.EqualsAndHashCode;
@@ -20,10 +21,12 @@ public class BreakDto {
     @ApiModelProperty(
             "Время начала перерыва"
     )
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
     @ApiModelProperty(
             "Время окончания перерыва"
     )
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime finishTime;
     @ApiModelProperty(
             "Описание причины перерыва"

@@ -1,5 +1,6 @@
 package ru.ds.fltracker.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -18,5 +19,6 @@ public class ScreenshotDto {
     @ApiModelProperty(
             "Время создание скриншота"
     )
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdTime;
 }

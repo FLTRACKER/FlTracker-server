@@ -17,6 +17,8 @@ import ru.ds.fltracker.payload.request.SaveNewScreenshotRequest;
 import ru.ds.fltracker.service.ScreenshotService;
 import ru.ds.fltracker.service.SessionService;
 
+import javax.imageio.ImageIO;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/screenshots")

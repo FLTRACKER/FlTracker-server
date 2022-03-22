@@ -8,9 +8,6 @@ CREATE TABLE IF NOT EXISTS users
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS users
-    OWNER to postgres;
-
 
 CREATE TABLE IF NOT EXISTS roles
 (
@@ -20,9 +17,6 @@ CREATE TABLE IF NOT EXISTS roles
 )
 
     TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS roles
-    OWNER to postgres;
 
 CREATE TABLE IF NOT EXISTS users_roles
 (
@@ -42,9 +36,6 @@ CREATE TABLE IF NOT EXISTS users_roles
 )
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS users_roles
-    OWNER to postgres;
-
 
 CREATE TABLE IF NOT EXISTS sessions
 (
@@ -60,9 +51,6 @@ CREATE TABLE IF NOT EXISTS sessions
 )
 
     TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS sessions
-    OWNER to postgres;
 
 
 CREATE TABLE IF NOT EXISTS breaks
@@ -82,9 +70,6 @@ CREATE TABLE IF NOT EXISTS breaks
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS breaks
-    OWNER to postgres;
-
 
 CREATE TABLE IF NOT EXISTS screenshots
 (
@@ -101,9 +86,6 @@ CREATE TABLE IF NOT EXISTS screenshots
 )
 
     TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS screenshots
-    OWNER to postgres;
 
 
 CREATE TABLE IF NOT EXISTS activities
@@ -122,10 +104,6 @@ CREATE TABLE IF NOT EXISTS activities
 
     TABLESPACE pg_default;
 
-ALTER TABLE IF EXISTS activities
-    OWNER to postgres;
-
-
 CREATE TABLE IF NOT EXISTS active_windows
 (
     id bigint NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 9223372036854775807 CACHE 1 ),
@@ -141,6 +119,3 @@ CREATE TABLE IF NOT EXISTS active_windows
     )
 
     TABLESPACE pg_default;
-
-ALTER TABLE IF EXISTS active_windows
-    OWNER to postgres;
