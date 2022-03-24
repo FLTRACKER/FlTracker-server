@@ -12,17 +12,17 @@ import java.util.List;
 @ApiModel("Модель пользователя")
 public class UserDto {
     @ApiModelProperty(
-            "Идентификатор пользователя"
-    )
-    private Integer id;
-
-    @ApiModelProperty(
             "Имя пользователя"
     )
     private String username;
 
     @ApiModelProperty(
-            "Роли пользователя"
+            "ФИО пользователя"
     )
-    private List<RoleDto> roles;
+    private String fullName;
+
+    @ApiModelProperty(
+            "Email"
+    )
+    private String email;
 }

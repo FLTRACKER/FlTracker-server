@@ -18,14 +18,9 @@ public class Mapper extends ConfigurableMapper {
         factory.getConverterFactory().registerConverter(new PassThroughConverter(LocalDate.class));
 
         factory.classMap(UserEntity.class, UserDto.class)
-                .field("id", "id")
                 .field("username", "username")
-                .field("roles", "roles")
-                .byDefault()
-                .register();
-
-        factory.classMap(RoleEntity.class, RoleDto.class)
-                .field("title", "title")
+                .field("fullName", "fullName")
+                .field("email", "email")
                 .byDefault()
                 .register();
 

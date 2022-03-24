@@ -17,25 +17,17 @@ import java.util.Objects;
 @Table(name = "users")
 public class UserEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-
-    @Basic
-    @Column(name = "username", nullable = false, length = 20)
+    @Column(name = "username", nullable = false)
     private String username;
 
     @Basic
-    @Column(name = "password", nullable = false, length = 500)
-    private String password;
+    @Column(name = "full_name", length = 255)
+    private String fullName;
+
+    @Basic
+    @Column(name = "email", length = 255)
+    private String email;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<SessionEntity> sessions;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RoleEntity> roles;
 }
