@@ -12,9 +12,9 @@ import java.util.List;
 @ApiModel("Модель пользователя")
 public class UserDto {
     @ApiModelProperty(
-            "Имя пользователя"
+            "Идентификатор пользователя (имя пользователя)"
     )
-    private String username;
+    private String userId;
 
     @ApiModelProperty(
             "ФИО пользователя"

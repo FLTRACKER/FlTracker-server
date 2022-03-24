@@ -27,7 +27,7 @@ public class UserService {
         return persisted;
     }
 
-    public UserEntity getUserById(Integer id) {
+    public UserEntity getUserById(String id) {
         return userRepo.findById(id).orElseThrow(EntityNotFoundException::new);
     }
 }

@@ -7,7 +7,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Setter
@@ -17,8 +16,8 @@ import java.util.Objects;
 @Table(name = "users")
 public class UserEntity {
     @Id
-    @Column(name = "username", nullable = false)
-    private String username;
+    @Column(name = "user_id", nullable = false)
+    private String userId;
 
     @Basic
     @Column(name = "full_name", length = 255)

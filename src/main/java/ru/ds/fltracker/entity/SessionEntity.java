@@ -31,7 +31,7 @@ public class SessionEntity {
     private LocalDateTime finishTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user", referencedColumnName = "username")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private UserEntity user;
 
     @OneToMany(mappedBy = "session", fetch = FetchType.LAZY)

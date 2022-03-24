@@ -100,8 +100,7 @@ public class BaseTest {
                      @Autowired SessionService sessionService,
                      @Autowired UserService userService) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setUsername("user");
-        userEntity.setPassword("password");
+        userEntity.setUserId("user");
         userService.save(userEntity);
 
         SessionEntity sessionEntity = new SessionEntity();
